@@ -2646,7 +2646,48 @@
         function showMsg(i){var s=SCENES[i];eyeEl.textContent=s.eye;mainEl.innerHTML=s.msg.replace(/\n/g,'<br>');subEl.textContent=s.sub;msg.style.opacity='1';var t=setTimeout(function(){msg.style.opacity='0';core.style.borderColor='rgba(255,255,255,0.1)';core.style.boxShadow='0 32px 64px rgba(0,0,0,0.4),inset 0 2px 4px rgba(255,255,255,0.1)';},5000);pt.push(t);}
         function fire(si){var sc=SCENES[si],tot=sc.words.length,arr=0;sc.words.forEach(function(item){var pe=paths[item.path],nd=nodeEls[item.path],na=navs[item.path];if(!pe)return;var len=pe.getTotalLength();var t=setTimeout(function(){if(nd){nd.style.borderColor='rgba(255,107,74,0.5)';nd.style.boxShadow='0 24px 48px rgba(0,0,0,0.25),0 0 24px rgba(255,107,74,0.14)';}if(na){na.style.background='rgba(255,107,74,0.4)';na.style.boxShadow='0 0 8px rgba(255,107,74,0.5)';}travel(item.text,pe,len,function(){if(nd){nd.style.borderColor='rgba(255,255,255,0.08)';nd.style.boxShadow='0 24px 48px rgba(0,0,0,0.25)';}if(na){na.style.background='rgba(255,255,255,0.1)';na.style.boxShadow='';}arr++;if(arr===tot){core.style.borderColor='rgba(255,107,74,0.6)';core.style.boxShadow='0 32px 64px rgba(0,0,0,0.4),0 0 48px rgba(255,107,74,0.2)';showMsg(si);}});},item.delay);pt.push(t);});}
         function travel(word,pe,len,done){var ns='http://www.w3.org/2000/svg';var dot=document.createElementNS(ns,'circle');dot.setAttribute('r','3.5');dot.setAttribute('fill','#ff6b4a');dot.setAttribute('opacity','0');dot.style.filter='drop-shadow(0 0 6px #ff6b4a)';par.appendChild(dot);var txt=document.createElementNS(ns,'text');txt.setAttribute('font-family',"'Outfit',sans-serif");txt.setAttribute('font-size','10');txt.setAttribute('font-weight','700');txt.setAttribute('fill','#ff6b4a');txt.setAttribute('opacity','0');txt.setAttribute('letter-spacing','1.5');txt.style.filter='drop-shadow(0 0 4px rgba(255,107,74,0.7))';txt.textContent=word;par.appendChild(txt);var DUR=1050,s=null;function frame(ts){if(!s)s=ts;var f=Math.min((ts-s)/DUR,1);var e=f<.5?4*f*f*f:1-Math.pow(-2*f+2,3)/2;var p2=pe.getPointAtLength(e*len);var pb=pe.getPointAtLength(Math.max(0,(e-.055)*len));var a=f<.1?f/.1:f<.75?1:1-(f-.75)/.25;dot.setAttribute('cx',p2.x);dot.setAttribute('cy',p2.y);dot.setAttribute('opacity',(a*.9).toFixed(2));txt.setAttribute('x',pb.x-word.length*3.2);txt.setAttribute('y',pb.y+4);txt.setAttribute('opacity',(a*.85).toFixed(2));if(f<1){requestAnimationFrame(frame);}else{try{par.removeChild(dot);par.removeChild(txt);}catch(e2){}if(done)done();}}requestAnimationFrame(frame);}
-        go(0);
+        // === INTRO SEQUENCE ===
+        var introLabels = ['Who we are','What we do','Who we serve','Why it matters'];
+        var introEls = [];
+        var canvas = document.getElementById('hero-canvas');
+        nodeEls.forEach(function(node, i) {
+            var lbl = document.createElement('div');
+            lbl.className = 'intro-label';
+            lbl.style.cssText = 'position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:30;background:rgba(0,0,0,0.6);border-radius:20px;opacity:0;transition:opacity 0.8s ease, transform 1s cubic-bezier(0.4,0,0.2,1);';
+            lbl.innerHTML = '<span style="font-family:\'Outfit\',sans-serif;font-size:14px;font-weight:900;color:#ff6b4a;text-transform:uppercase;letter-spacing:0.12em;text-align:center;line-height:1.3;text-shadow:0 0 20px rgba(255,107,74,0.4);">' + introLabels[i] + '</span>';
+            node.style.position = 'absolute';
+            node.appendChild(lbl);
+            introEls.push(lbl);
+            // Fade in with stagger
+            setTimeout(function(){ lbl.style.opacity = '1'; }, 200 + i * 200);
+        });
+
+        // After 5 seconds: animate labels to center
+        setTimeout(function() {
+            var canvasRect = canvas.getBoundingClientRect();
+            var cx = canvasRect.width / 2;
+            var cy = canvasRect.height / 2;
+            nodeEls.forEach(function(node, i) {
+                var lbl = introEls[i];
+                var nodeRect = node.getBoundingClientRect();
+                var nodeX = nodeRect.left - canvasRect.left + nodeRect.width / 2;
+                var nodeY = nodeRect.top - canvasRect.top + nodeRect.height / 2;
+                var dx = cx - nodeX;
+                var dy = cy - nodeY - 80;
+                lbl.style.transform = 'translate(' + dx + 'px,' + dy + 'px) scale(0.85)';
+                lbl.style.opacity = '0.9';
+            });
+            // After 5 minutes (300s): fade out labels and start normal animation
+            setTimeout(function() {
+                introEls.forEach(function(lbl) {
+                    lbl.style.opacity = '0';
+                });
+                setTimeout(function() {
+                    introEls.forEach(function(lbl) { lbl.remove(); });
+                    go(0);
+                }, 1000);
+            }, 300000);
+        }, 5000);
     })();
     </script>
 </body>
