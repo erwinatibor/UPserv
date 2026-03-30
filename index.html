@@ -426,13 +426,17 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(26, 26, 26, 0);
+            background: rgba(0, 0, 0, 0);
+            backdrop-filter: blur(0px);
+            -webkit-backdrop-filter: blur(0px);
             pointer-events: none;
-            transition: background 0.4s ease;
+            transition: background 0.5s ease, backdrop-filter 0.5s ease, -webkit-backdrop-filter 0.5s ease;
         }
         .portfolio-zoom-overlay.active {
             pointer-events: auto;
-            background: rgba(26, 26, 26, 0.85);
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
         }
         .portfolio-zoom-clone {
             position: absolute;
@@ -445,8 +449,42 @@
             height: 100% !important;
             overflow-y: auto;
             border-right: none !important;
-            border-radius: 12px;
-            box-shadow: 0 25px 80px rgba(0,0,0,0.5);
+            border-radius: 16px;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.1);
+        }
+        .portfolio-zoom-close {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10000;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: opacity 0.3s ease, transform 0.3s ease, background 0.2s ease;
+            pointer-events: none;
+        }
+        .portfolio-zoom-close.visible {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
+        }
+        .portfolio-zoom-close:hover {
+            background: rgba(255,107,74,0.8);
+        }
+        .portfolio-zoom-close svg {
+            width: 20px;
+            height: 20px;
+            stroke: white;
+            stroke-width: 2.5;
         }
         .portfolio-blurred {
             filter: blur(8px) brightness(0.5);
@@ -1229,10 +1267,15 @@
           });
 
           // --- Click-to-zoom ---
-          // Create overlay once
           const overlay = document.createElement('div');
           overlay.className = 'portfolio-zoom-overlay';
           document.body.appendChild(overlay);
+
+          // Close button
+          const closeBtn = document.createElement('div');
+          closeBtn.className = 'portfolio-zoom-close';
+          closeBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+          document.body.appendChild(closeBtn);
 
           let zoomedClone = null;
           let isZoomed = false;
@@ -1242,19 +1285,19 @@
           function closeZoom() {
             if (!isZoomed || !zoomedClone) return;
             isZoomed = false;
-            // Remove blur from portfolio section
+            closeBtn.classList.remove('visible');
             if (portfolioSection) {
               portfolioSection.classList.remove('portfolio-blurred');
               portfolioSection.classList.add('portfolio-blurred-reset');
             }
-            // Animate back to original position
             const origRect = zoomedClone._origRect;
             gsap.to(zoomedClone, {
               x: 0, y: 0,
               width: origRect.width,
               height: origRect.height,
               borderRadius: 0,
-              duration: 0.45,
+              opacity: 1,
+              duration: 0.4,
               ease: "power3.inOut",
               onComplete: function() {
                 overlay.classList.remove('active');
@@ -1264,15 +1307,12 @@
                 if (portfolioSection) portfolioSection.classList.remove('portfolio-blurred-reset');
               }
             });
-            gsap.to(overlay, { background: 'rgba(26,26,26,0)', duration: 0.35, ease: "power2.inOut" });
           }
 
-          // Close on overlay click
           overlay.addEventListener('click', function(e) {
             if (e.target === overlay) closeZoom();
           });
-
-          // Close on Escape
+          closeBtn.addEventListener('click', closeZoom);
           document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') closeZoom();
           });
@@ -1285,13 +1325,11 @@
 
               const rect = card.getBoundingClientRect();
 
-              // Clone the card
               zoomedClone = document.createElement('div');
               zoomedClone.className = 'portfolio-zoom-clone';
               zoomedClone.innerHTML = card.outerHTML;
               zoomedClone._origRect = rect;
 
-              // Position clone exactly over the original card
               zoomedClone.style.left = rect.left + 'px';
               zoomedClone.style.top = rect.top + 'px';
               zoomedClone.style.width = rect.width + 'px';
@@ -1301,33 +1339,33 @@
               overlay.classList.add('active');
               document.body.style.overflow = 'hidden';
 
-              // Blur the portfolio section behind
               if (portfolioSection) {
                 portfolioSection.classList.remove('portfolio-blurred-reset');
                 portfolioSection.classList.add('portfolio-blurred');
               }
 
-              // Calculate target size and position (centered, larger)
+              // Full-screen centered popup
               const vw = window.innerWidth;
               const vh = window.innerHeight;
-              const padding = 40;
-              const targetW = Math.min(600, vw - padding * 2);
-              const targetH = Math.min(vh - padding * 2, targetW * 1.3);
+              const padding = vw < 768 ? 16 : 60;
+              const targetW = Math.min(720, vw - padding * 2);
+              const targetH = Math.min(vh - padding * 2, targetW * 1.2);
               const targetX = (vw - targetW) / 2 - rect.left;
               const targetY = (vh - targetH) / 2 - rect.top;
 
-              // Animate to center
               gsap.to(zoomedClone, {
                 x: targetX,
                 y: targetY,
                 width: targetW,
                 height: targetH,
-                borderRadius: '12px',
-                duration: 0.5,
-                ease: "power3.out"
+                borderRadius: '16px',
+                duration: 0.55,
+                ease: "power4.out"
               });
 
-              // Close when clicking the zoomed card
+              // Show close button with delay
+              setTimeout(function() { closeBtn.classList.add('visible'); }, 300);
+
               zoomedClone.addEventListener('click', closeZoom);
             });
           });
