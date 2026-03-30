@@ -492,7 +492,7 @@
 <body class="bg-brand-light text-brand-dark font-sans antialiased overflow-x-hidden selection:bg-brand-coral selection:text-white">
 
     <!-- Global Interactive Liquid Water Trail -->
-    <canvas id="fluid-canvas" class="fixed inset-0 w-full h-full pointer-events-none z-50 opacity-80"></canvas>
+    <canvas id="fluid-canvas" class="fixed inset-0 w-full h-full pointer-events-none z-50 opacity-40"></canvas>
 
     <nav class="fixed w-full z-50 top-0 border-b border-gray-200 bg-white/95 backdrop-blur-md">
         <div class="max-w-[1440px] mx-auto px-4 md:px-8 h-20 md:h-24 flex items-center justify-between">
@@ -2272,24 +2272,23 @@
                     trail.push({
                         x: x, y: y,
                         age: 0,
-                        size: 5,
-                        maxSize: 30 + Math.random() * 20, // Reduced max size for performance
-                        life: 20 + Math.random() * 10, // Reduced lifespan for fewer particles
-                        vx: (Math.random() - 0.5) * 1.0, // Natural fluid drift
-                        vy: (Math.random() - 0.5) * 1.0
+                        size: 3,
+                        maxSize: 14 + Math.random() * 8,
+                        life: 18 + Math.random() * 8,
+                        vx: (Math.random() - 0.5) * 0.3,
+                        vy: (Math.random() - 0.5) * 0.3
                     });
                 }
 
                 window.triggerParticleBurst = () => {
-                    // Creates a massive splash of water on click
-                    for(let i = 0; i < 20; i++) {
+                    for(let i = 0; i < 8; i++) {
                         trail.push({
-                            x: mouseX + (Math.random() - 0.5) * 80,
-                            y: mouseY + (Math.random() - 0.5) * 80,
-                            age: 0, size: 20, maxSize: 120 + Math.random() * 80,
-                            life: 50 + Math.random() * 30,
-                            vx: (Math.random() - 0.5) * 12,
-                            vy: (Math.random() - 0.5) * 12
+                            x: mouseX + (Math.random() - 0.5) * 40,
+                            y: mouseY + (Math.random() - 0.5) * 40,
+                            age: 0, size: 8, maxSize: 40 + Math.random() * 20,
+                            life: 25 + Math.random() * 15,
+                            vx: (Math.random() - 0.5) * 4,
+                            vy: (Math.random() - 0.5) * 4
                         });
                     }
                 };
@@ -2301,8 +2300,8 @@
                     // Fill in the gaps if the mouse moves very fast
                     if (isMoving) {
                         const dist = Math.hypot(mouseX - lastMouseX, mouseY - lastMouseY);
-                        if (dist > 15) {
-                            const steps = Math.floor(dist / 15);
+                        if (dist > 25) {
+                            const steps = Math.floor(dist / 25);
                             for (let i = 0; i < steps; i++) {
                                 addFluidDrop(lastMouseX + (mouseX - lastMouseX) * (i / steps), lastMouseY + (mouseY - lastMouseY) * (i / steps));
                             }
@@ -2312,16 +2311,13 @@
                         lastMouseX = mouseX;
                         lastMouseY = mouseY;
                         isMoving = false;
-                    } else if (isDesktop && Math.random() > 0.9) {
-                        // Subtle ripples even when idle
-                        addFluidDrop(mouseX + (Math.random()-0.5)*10, mouseY + (Math.random()-0.5)*10);
                     }
 
                     for (let i = 0; i < trail.length; i++) {
                         const p = trail[i];
                         p.age++;
                         p.x += p.vx;
-                        p.y += p.vy - 0.5; // slight upward drift
+                        p.y += p.vy - 0.15;
 
                         const progress = p.age / p.life;
                         if (progress >= 1) {
@@ -2332,7 +2328,7 @@
 
                         // Expand size and fade opacity
                         const currentSize = p.size + (p.maxSize - p.size) * Math.sin(progress * Math.PI / 2);
-                        const opacity = (1 - Math.pow(progress, 2)) * 0.4;
+                        const opacity = (1 - Math.pow(progress, 2)) * 0.2;
 
                         // Shift color from Lilac to Coral as the ripple ages
                         const r = Math.round(color1.r + (color2.r - color1.r) * progress);
