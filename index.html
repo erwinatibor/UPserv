@@ -348,14 +348,23 @@
         }
         ::selection { background: var(--selection-bg); color: var(--selection-text); }
 
-        /* Headings */
+        /* Headings — exclude hero section */
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Space Grotesk', 'Outfit', sans-serif !important;
             color: var(--text-heading) !important;
         }
+        #hero-section h1,
+        #hero-section h2,
+        #hero-section h3,
+        #hero-section p,
+        #hero-section strong,
+        #hero-section span,
+        #hero-section div {
+            color: unset !important;
+        }
 
         /* Body text — 16px / 1.7 for readability */
-        p, li, .faq-answer, .portfolio-card p, #blog p,
+        p:not(#hero-section p), li, .faq-answer, .portfolio-card p, #blog p,
         [itemprop="description"] {
             font-size: 16px !important;
             line-height: 1.7 !important;
