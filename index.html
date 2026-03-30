@@ -1186,22 +1186,13 @@
         <script>
         (function() {
           const track = document.querySelector('.portfolio-scroll-track');
-          const originalCards = Array.from(track.querySelectorAll('.portfolio-card'));
+          const allCards = Array.from(track.querySelectorAll('.portfolio-card'));
           const wrapper = document.querySelector('.portfolio-scroll-wrapper');
           const prevBtn = document.getElementById('portfolio-prev');
           const nextBtn = document.getElementById('portfolio-next');
-          const totalOriginal = originalCards.length;
+          const totalCards = allCards.length;
 
-          // Clone cards before and after for seamless infinite loop
-          originalCards.forEach(function(card) {
-            track.appendChild(card.cloneNode(true));
-          });
-          originalCards.forEach(function(card) {
-            track.insertBefore(card.cloneNode(true), track.firstChild);
-          });
-
-          const allCards = track.querySelectorAll('.portfolio-card');
-          let currentIndex = totalOriginal; // start at first real card
+          let currentIndex = 0;
           let isHovering = false;
           let isAnimating = false;
 
@@ -1209,23 +1200,14 @@
             return allCards[0].offsetWidth;
           }
 
-          // Jump without animation to keep the illusion
-          function jumpTo(index) {
-            currentIndex = index;
-            gsap.set(track, { x: -currentIndex * getCardWidth() });
-          }
-
-          // Wrap index if we've gone past cloned boundaries
-          function wrapIndex() {
-            if (currentIndex >= totalOriginal * 2) {
-              jumpTo(currentIndex - totalOriginal);
-            } else if (currentIndex < 0) {
-              jumpTo(currentIndex + totalOriginal);
-            }
+          function updateButtons() {
+            prevBtn.disabled = currentIndex <= 0;
+            nextBtn.disabled = currentIndex >= totalCards - 1;
           }
 
           function navigateTo(index) {
             if (isAnimating) return;
+            if (index < 0 || index >= totalCards) return;
             isAnimating = true;
             currentIndex = index;
             gsap.to(track, {
@@ -1234,17 +1216,14 @@
               ease: "power2.out",
               onComplete: function() {
                 isAnimating = false;
-                wrapIndex();
+                updateButtons();
               }
             });
+            updateButtons();
           }
 
-          // Initial position at first real set
-          jumpTo(currentIndex);
-
-          // Buttons never disable — infinite scroll
-          prevBtn.disabled = false;
-          nextBtn.disabled = false;
+          gsap.set(track, { x: 0 });
+          updateButtons();
 
           // Mouse wheel on hover
           wrapper.addEventListener('mouseenter', function() { isHovering = true; });
@@ -1423,7 +1402,6 @@
             });
           });
 
-          updateButtons();
         })();
         </script>
 
