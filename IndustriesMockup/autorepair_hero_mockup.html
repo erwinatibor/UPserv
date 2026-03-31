@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #0f0e0c;
+    --steel: #1a1915;
+    --plate: #242320;
+    --zinc: #2e2d29;
+    --rust: #D4500A;
+    --amber: #F5A623;
+    --chrome: #c8c4bc;
+    --mist: #7a7870;
+    --white: #f4f1eb;
+    --border: rgba(255,255,255,0.07);
+    --glow: rgba(245,166,35,0.15);
+    --r: 10px;
+  }
+
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--ink);
+    color: var(--white);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(15,14,12,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--white);
+  }
+
+  .logo-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--amber);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .logo span { color: var(--amber); }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+
+  nav ul li a {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--mist);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  nav ul li a:hover { color: var(--white); }
+
+  .nav-cta {
+    background: var(--amber) !important;
+    color: var(--ink) !important;
+    padding: 8px 20px;
+    border-radius: 6px;
+    font-weight: 600 !important;
+  }
+
+  /* ── HERO GRID ── */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    min-height: calc(100vh - 64px - 80px);
+    gap: 0;
+  }
+
+  /* ── LEFT: CHECKPOINTS ── */
+  .left-panel {
+    padding: 56px 48px 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 52px;
+    border-right: 1px solid var(--border);
+  }
+
+  .checkpoint {
+    display: flex;
+    gap: 20px;
+    animation: slideUp 0.6s ease both;
+  }
+
+  .checkpoint:nth-child(1) { animation-delay: 0.1s; }
+  .checkpoint:nth-child(2) { animation-delay: 0.2s; }
+  .checkpoint:nth-child(3) { animation-delay: 0.3s; }
+  .checkpoint:nth-child(4) { animation-delay: 0.4s; }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .check-marker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .check-num {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1.5px solid var(--amber);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--amber);
+    background: rgba(245,166,35,0.07);
+    flex-shrink: 0;
+  }
+
+  .check-line {
+    width: 1px;
+    flex: 1;
+    background: linear-gradient(to bottom, rgba(245,166,35,0.3), transparent);
+    margin-top: 8px;
+    min-height: 32px;
+  }
+
+  .checkpoint:last-child .check-line { display: none; }
+
+  .check-content { flex: 1; padding-top: 4px; }
+
+  .check-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .check-label::before {
+    content: '';
+    display: inline-block;
+    width: 18px;
+    height: 1px;
+    background: var(--amber);
+  }
+
+  /* Identity badge */
+  .identity-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--plate);
+    border: 1px solid var(--border);
+    border-left: 2px solid var(--amber);
+    border-radius: 8px;
+    padding: 12px 18px;
+    margin-bottom: 10px;
+  }
+
+  .badge-icon {
+    width: 38px;
+    height: 38px;
+    background: rgba(245,166,35,0.12);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+  }
+
+  .badge-text h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--white);
+    line-height: 1.1;
+  }
+
+  .badge-text p {
+    font-size: 12px;
+    color: var(--mist);
+    margin-top: 2px;
+  }
+
+  .trust-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+  }
+
+  .trust-pill {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 20px;
+    background: var(--zinc);
+    color: var(--chrome);
+    border: 1px solid var(--border);
+    letter-spacing: 0.03em;
+  }
+
+  .trust-pill.gold {
+    background: rgba(245,166,35,0.1);
+    color: var(--amber);
+    border-color: rgba(245,166,35,0.25);
+  }
+
+  /* Big headline */
+  .big-headline {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(42px, 6vw, 72px);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    color: var(--white);
+  }
+
+  .big-headline em {
+    font-style: normal;
+    color: var(--amber);
+    display: block;
+  }
+
+  .service-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 14px;
+  }
+
+  .service-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 4px;
+    background: var(--zinc);
+    color: var(--chrome);
+    border: 1px solid var(--border);
+  }
+
+  /* Audience paragraph */
+  .audience-para {
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.75;
+    color: var(--chrome);
+    max-width: 500px;
+  }
+
+  .audience-para strong {
+    color: var(--white);
+    font-weight: 500;
+  }
+
+  /* Highlight box */
+  .highlight-box {
+    background: linear-gradient(135deg, rgba(212,80,10,0.12), rgba(245,166,35,0.08));
+    border: 1px solid rgba(245,166,35,0.25);
+    border-radius: var(--r);
+    padding: 20px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .highlight-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--rust), var(--amber));
+    border-radius: 3px 0 0 3px;
+  }
+
+  .highlight-box-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 6px;
+  }
+
+  .highlight-box h4 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+
+  .highlight-box p {
+    font-size: 13.5px;
+    font-weight: 300;
+    line-height: 1.65;
+    color: var(--chrome);
+  }
+
+  .urgency-badges {
+    display: flex;
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  .urgency-badge {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 5px 10px;
+    border-radius: 6px;
+  }
+
+  .urgency-badge.red {
+    background: rgba(212,80,10,0.15);
+    color: #ff7a46;
+    border: 1px solid rgba(212,80,10,0.3);
+  }
+
+  .urgency-badge.amber {
+    background: rgba(245,166,35,0.1);
+    color: var(--amber);
+    border: 1px solid rgba(245,166,35,0.2);
+  }
+
+  /* ── RIGHT: SIDEBAR CARD STACK ── */
+  .right-panel {
+    padding: 40px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background: var(--steel);
+  }
+
+  .sidebar-card {
+    background: var(--plate);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 20px;
+    animation: fadeIn 0.5s ease both;
+  }
+
+  .sidebar-card:nth-child(1) { animation-delay: 0.15s; }
+  .sidebar-card:nth-child(2) { animation-delay: 0.25s; }
+  .sidebar-card:nth-child(3) { animation-delay: 0.35s; }
+  .sidebar-card:nth-child(4) { animation-delay: 0.45s; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateX(16px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+
+  /* Profile card */
+  .profile-card {
+    background: var(--zinc);
+    text-align: center;
+    padding: 24px 20px;
+  }
+
+  .profile-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--rust), var(--amber));
+    margin: 0 auto 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--ink);
+    border: 2px solid rgba(245,166,35,0.4);
+  }
+
+  .profile-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: 0.03em;
+  }
+
+  .profile-title {
+    font-size: 12px;
+    color: var(--mist);
+    margin-top: 2px;
+    letter-spacing: 0.05em;
+  }
+
+  .profile-rating {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    margin-top: 10px;
+  }
+
+  .stars { color: var(--amber); font-size: 14px; letter-spacing: 1px; }
+
+  .rating-count {
+    font-size: 12px;
+    color: var(--mist);
+    margin-left: 4px;
+  }
+
+  .cert-row {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 12px;
+  }
+
+  .cert {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: rgba(245,166,35,0.1);
+    color: var(--amber);
+    border: 1px solid rgba(245,166,35,0.2);
+  }
+
+  /* Info card */
+  .card-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--mist);
+    margin-bottom: 12px;
+  }
+
+  .hours-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .hours-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+  }
+
+  .hours-row span:first-child { color: var(--chrome); }
+  .hours-row span:last-child { color: var(--white); font-weight: 500; }
+
+  .hours-row.today span:first-child { color: var(--amber); font-weight: 500; }
+  .hours-row.today span:last-child { color: var(--amber); }
+
+  /* CTA card */
+  .cta-card {
+    background: linear-gradient(145deg, rgba(212,80,10,0.15), rgba(245,166,35,0.08));
+    border-color: rgba(245,166,35,0.2);
+  }
+
+  .cta-headline {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+
+  .cta-sub {
+    font-size: 12px;
+    color: var(--mist);
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+
+  .btn-primary {
+    display: block;
+    width: 100%;
+    padding: 11px;
+    background: var(--amber);
+    color: var(--ink);
+    border: none;
+    border-radius: 7px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    margin-bottom: 8px;
+  }
+
+  .btn-primary:hover { background: #f7b84a; transform: translateY(-1px); }
+
+  .btn-secondary {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background: transparent;
+    color: var(--chrome);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .btn-secondary:hover { border-color: var(--amber); color: var(--amber); }
+
+  /* Status indicator */
+  .status-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--mist);
+    margin-bottom: 14px;
+  }
+
+  .status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #4ade80;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  /* ── STAT STRIP ── */
+  .stat-strip {
+    background: var(--plate);
+    border-top: 1px solid var(--border);
+    height: 80px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    align-items: center;
+  }
+
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+    border-right: 1px solid var(--border);
+    animation: countUp 0.8s ease both;
+  }
+
+  .stat-item:last-child { border-right: none; }
+
+  @keyframes countUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .stat-item:nth-child(1) { animation-delay: 0.5s; }
+  .stat-item:nth-child(2) { animation-delay: 0.6s; }
+  .stat-item:nth-child(3) { animation-delay: 0.7s; }
+  .stat-item:nth-child(4) { animation-delay: 0.8s; }
+  .stat-item:nth-child(5) { animation-delay: 0.9s; }
+
+  .stat-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--white);
+    letter-spacing: 0.02em;
+    line-height: 1;
+  }
+
+  .stat-num span { color: var(--amber); }
+
+  .stat-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--mist);
+    margin-top: 3px;
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">
+    <div class="logo-icon">⚙</div>
+    APEX<span>MOTO</span>
+  </div>
+  <ul>
+    <li><a href="#">Services</a></li>
+    <li><a href="#">Diagnostics</a></li>
+    <li><a href="#">Gallery</a></li>
+    <li><a href="#">Fleet</a></li>
+    <li><a href="#" class="nav-cta">Book Service</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+
+  <!-- LEFT PANEL -->
+  <div class="left-panel">
+
+    <!-- 1. Identity -->
+    <div class="checkpoint">
+      <div class="check-marker">
+        <div class="check-num">01</div>
+        <div class="check-line"></div>
+      </div>
+      <div class="check-content">
+        <div class="check-label">Who we are</div>
+        <div class="identity-badge">
+          <div class="badge-icon">🔧</div>
+          <div class="badge-text">
+            <h3>Apex Moto Group</h3>
+            <p>Factory-certified auto repair — since 1998</p>
+          </div>
+        </div>
+        <div class="trust-row">
+          <span class="trust-pill gold">ASE Certified</span>
+          <span class="trust-pill gold">AAA Approved</span>
+          <span class="trust-pill">Family-owned</span>
+          <span class="trust-pill">26 Years</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. What we do -->
+    <div class="checkpoint">
+      <div class="check-marker">
+        <div class="check-num">02</div>
+        <div class="check-line"></div>
+      </div>
+      <div class="check-content">
+        <div class="check-label">What we do</div>
+        <div class="big-headline">
+          We Fix Cars<br>
+          <em>Right.</em>
+        </div>
+        <div class="service-tags">
+          <span class="service-tag">Engine</span>
+          <span class="service-tag">Transmission</span>
+          <span class="service-tag">Brakes</span>
+          <span class="service-tag">Suspension</span>
+          <span class="service-tag">EV / Hybrid</span>
+          <span class="service-tag">Diagnostics</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Who it's for -->
+    <div class="checkpoint">
+      <div class="check-marker">
+        <div class="check-num">03</div>
+        <div class="check-line"></div>
+      </div>
+      <div class="check-content">
+        <div class="check-label">Who it's for</div>
+        <p class="audience-para">
+          Built for <strong>everyday drivers</strong> who expect dealership-level expertise without the dealership markup. Whether you drive a <strong>daily commuter, a weekend truck, or a late-model EV</strong> — we treat every vehicle as if it were our own.
+        </p>
+      </div>
+    </div>
+
+    <!-- 4. Why now -->
+    <div class="checkpoint">
+      <div class="check-marker">
+        <div class="check-num">04</div>
+        <div class="check-line"></div>
+      </div>
+      <div class="check-content">
+        <div class="check-label">Why it matters now</div>
+        <div class="highlight-box">
+          <div class="highlight-box-label">⚠ Don't ignore the warning light</div>
+          <h4>Deferred maintenance costs 3× more</h4>
+          <p>Minor issues left unaddressed compound into major repairs. Our free 27-point digital inspection catches problems while they're still cheap — before they become dangerous.</p>
+          <div class="urgency-badges">
+            <span class="urgency-badge red">🔴 Same-day slots open today</span>
+            <span class="urgency-badge amber">Free inspection with any service</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="right-panel">
+
+    <!-- Profile card -->
+    <div class="sidebar-card profile-card">
+      <div class="profile-avatar">MR</div>
+      <div class="profile-name">Mike Reyes</div>
+      <div class="profile-title">Master Technician · Lead Diagnostician</div>
+      <div class="profile-rating">
+        <span class="stars">★★★★★</span>
+        <span class="rating-count">4.9 (1,284 reviews)</span>
+      </div>
+      <div class="cert-row">
+        <span class="cert">ASE Master</span>
+        <span class="cert">EVX Cert.</span>
+        <span class="cert">OEM Trained</span>
+      </div>
+    </div>
+
+    <!-- Hours card -->
+    <div class="sidebar-card">
+      <div class="status-bar">
+        <div class="status-dot"></div>
+        <span>Open now · Closes 6 PM</span>
+      </div>
+      <div class="card-title">Hours</div>
+      <div class="hours-list">
+        <div class="hours-row today"><span>Tuesday (today)</span><span>7 AM – 6 PM</span></div>
+        <div class="hours-row"><span>Mon – Fri</span><span>7 AM – 6 PM</span></div>
+        <div class="hours-row"><span>Saturday</span><span>8 AM – 4 PM</span></div>
+        <div class="hours-row"><span>Sunday</span><span>Closed</span></div>
+      </div>
+    </div>
+
+    <!-- CTA card -->
+    <div class="sidebar-card cta-card">
+      <div class="cta-headline">Schedule Your Visit</div>
+      <div class="cta-sub">Most services available within 24 hours. Free loaner vehicles for repairs over 4 hrs.</div>
+      <button class="btn-primary">Book Appointment →</button>
+      <button class="btn-secondary">Get a Quote</button>
+    </div>
+
+    <!-- Contact card -->
+    <div class="sidebar-card">
+      <div class="card-title">Find Us</div>
+      <div style="font-size:13px;line-height:1.7;color:var(--chrome);">
+        <div style="margin-bottom:6px;">📍 <strong style="color:var(--white);">2140 Industrial Blvd, Unit 4</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;San Marcos, CA 92069</div>
+        <div style="margin-bottom:6px;">📞 <a href="#" style="color:var(--amber);text-decoration:none;">(760) 555-0182</a></div>
+        <div>✉ <a href="#" style="color:var(--amber);text-decoration:none;">service@apexmoto.com</a></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- STAT STRIP -->
+<div class="stat-strip">
+  <div class="stat-item">
+    <div class="stat-num">26<span>+</span></div>
+    <div class="stat-label">Years in Business</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">18<span>k</span></div>
+    <div class="stat-label">Vehicles Serviced</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">4.9<span>★</span></div>
+    <div class="stat-label">Avg. Rating</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">97<span>%</span></div>
+    <div class="stat-label">Repeat Customers</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">24<span>h</span></div>
+    <div class="stat-label">Avg. Turnaround</div>
+  </div>
+</div>
+
+</body>
+</html>

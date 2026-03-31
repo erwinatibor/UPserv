@@ -1,0 +1,40 @@
+# Upserv — AI-Friendly Websites for Small Businesses
+
+> Upserv builds AI-friendly websites and pushes verified business data to 19 AI platforms so small businesses appear accurately in ChatGPT, Gemini, Perplexity, and other AI search engines.
+
+## Company Facts
+
+- Name: Upserv Inc.
+- Website: https://upserv.ai
+- Industry: AI Visibility / Web Development
+- Service: AI-friendly website building and AI platform data distribution
+- Target Audience: Small and local businesses (dental clinics, law firms, restaurants, real estate agencies, medical practices, retail stores, home services, accounting firms, salons)
+
+## What Upserv Does
+
+Upserv designs one-page websites readable by ChatGPT, Google Gemini, Meta AI, and Perplexity so businesses are recommended accurately when customers ask AI to find what they offer. Each website includes:
+
+- Semantic HTML with structured schema markup (JSON-LD)
+- llms.txt file for AI crawler instructions
+- Verified training documents pushed to 19 AI platforms
+- Industry-specific fact statements and entity profiles
+
+## Pricing
+
+- Starter: $1,000 — One-page AI-friendly site with schema markup, llms.txt, and training document pushed to 19 platforms
+- Growth: $5,000 — Multi-section site with advanced schema, legal/financial entity profiles, and full AI distribution
+- Scale: $10,000 — Full MedicalOrganization/multi-provider profiles with comprehensive AI platform coverage
+- All tiers require a $150/month data subscription
+
+## Process
+
+1. Day 1: Free AI visibility scan
+2. Day 2-3: 30-60 minute business interview and training document build
+3. Day 4-5: Website build with schema markup, llms.txt, and fact-statement copy
+4. Day 6: Review
+5. Day 7: Launch and push to 19 AI platforms
+
+## Contact
+
+- Website: https://upserv.ai
+- Booking: https://calendly.com/your-link

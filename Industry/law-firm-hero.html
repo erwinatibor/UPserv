@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Harrington & Cole — Corporate Litigation Real Estate Law Houston TX</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#1a2035;--navy-mid:#1f2740;--navy-card:#242d48;
+  --gold:#C9A84C;--gold-dim:rgba(201,168,76,0.1);--gold-border:rgba(201,168,76,0.25);
+  --light:#f4f1eb;--light-50:rgba(244,241,235,0.5);--light-30:rgba(244,241,235,0.3);
+  --light-15:rgba(244,241,235,0.15);--light-07:rgba(244,241,235,0.07);
+  --border:rgba(201,168,76,0.12);
+  --font-display:'Playfair Display',serif;--font-body:'DM Sans',sans-serif;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--navy);color:var(--light);font-family:var(--font-body);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(to bottom right,rgba(201,168,76,0.03) 0%,transparent 50%);pointer-events:none;z-index:0;}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 56px;height:72px;background:rgba(26,32,53,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+.nav-logo{display:flex;flex-direction:column;gap:2px;text-decoration:none;}
+.nav-logo-name{font-family:var(--font-display);font-size:17px;font-weight:600;color:var(--light);letter-spacing:0.04em;}
+.nav-logo-sub{font-size:9px;color:var(--gold);letter-spacing:0.2em;text-transform:uppercase;}
+.nav-links{display:flex;align-items:center;gap:32px;list-style:none;}
+.nav-links a{font-size:11px;color:var(--light-30);text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;transition:color 0.2s;}
+.nav-links a:hover{color:var(--light);}
+.btn-consult{padding:10px 24px;background:var(--gold);color:var(--navy);font-family:var(--font-body);font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;border-radius:2px;cursor:pointer;transition:opacity 0.2s;}
+.btn-consult:hover{opacity:0.85;}
+
+.hero{position:relative;z-index:1;min-height:100vh;display:grid;grid-template-columns:1fr 380px;padding-top:72px;}
+
+.hero-left{padding:80px 64px 80px 80px;display:flex;flex-direction:column;justify-content:center;gap:0;position:relative;}
+.hero-left::after{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(to bottom,transparent,var(--gold),transparent);}
+
+.checkpoint{display:flex;gap:28px;align-items:flex-start;padding:30px 0;border-bottom:1px solid var(--border);opacity:0;transform:translateY(16px);animation:fadeUp 0.6s ease forwards;}
+.checkpoint:last-of-type{border-bottom:none;}
+.checkpoint:nth-child(1){animation-delay:0.1s;}
+.checkpoint:nth-child(2){animation-delay:0.25s;}
+.checkpoint:nth-child(3){animation-delay:0.4s;}
+.checkpoint:nth-child(4){animation-delay:0.55s;}
+@keyframes fadeUp{to{opacity:1;transform:translateY(0);}}
+
+.cp-num{font-family:var(--font-display);font-size:11px;color:var(--gold);opacity:0.5;min-width:20px;padding-top:4px;letter-spacing:0.1em;}
+.cp-body{flex:1;}
+.cp-label{font-size:9px;font-weight:500;color:var(--gold);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:10px;opacity:0.7;}
+
+.identity-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;background:var(--gold-dim);border:1px solid var(--gold-border);border-radius:2px;}
+.identity-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);}
+.identity-text{font-family:var(--font-body);font-size:12px;color:var(--light-50);letter-spacing:0.08em;}
+
+.cp-headline{font-family:var(--font-display);font-size:clamp(30px,3.5vw,50px);font-weight:700;line-height:1.1;letter-spacing:-0.01em;color:var(--light);}
+.cp-headline em{color:var(--gold);font-style:italic;}
+.headline-rule{width:48px;height:2px;background:var(--gold);margin-top:16px;}
+
+.cp-audience{font-size:14px;font-weight:300;color:var(--light-30);line-height:1.8;max-width:460px;}
+.cp-audience strong{color:var(--light-50);font-weight:400;}
+
+.cp-ai-box{padding:16px 18px;background:var(--gold-dim);border:1px solid var(--gold-border);border-radius:2px;max-width:500px;}
+.cp-ai-inner{display:flex;gap:12px;align-items:flex-start;}
+.cp-ai-icon{width:24px;height:24px;border-radius:50%;background:rgba(201,168,76,0.2);border:1px solid var(--gold-border);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.cp-ai-text{font-size:13px;font-weight:300;color:var(--light-30);line-height:1.6;}
+.cp-ai-text strong{color:var(--gold);font-weight:500;}
+.ai-platforms{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px;}
+.ai-pill{padding:3px 9px;background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.15);border-radius:99px;font-size:9px;font-weight:500;color:var(--gold);letter-spacing:0.08em;}
+
+.hero-cta{display:flex;align-items:center;gap:14px;padding:36px 0 0;opacity:0;animation:fadeUp 0.6s ease forwards;animation-delay:0.7s;}
+.btn-gold{padding:12px 28px;background:var(--gold);color:var(--navy);font-family:var(--font-body);font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;border-radius:2px;transition:opacity 0.2s;}
+.btn-gold:hover{opacity:0.85;}
+.btn-outline{padding:12px 20px;background:transparent;border:1px solid var(--border);color:var(--light-30);font-size:11px;letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;border-radius:2px;transition:border-color 0.2s,color 0.2s;}
+.btn-outline:hover{border-color:var(--gold-border);color:var(--light-50);}
+
+.hero-right{background:var(--navy-mid);border-left:1px solid var(--border);display:flex;flex-direction:column;padding:48px 36px;gap:20px;position:relative;}
+
+.ai-badge{padding:14px 16px;background:var(--gold-dim);border:1px solid var(--gold-border);border-radius:2px;text-align:center;opacity:0;animation:fadeUp 0.5s ease forwards;animation-delay:0.3s;}
+.ai-badge-title{font-family:var(--font-body);font-size:9px;font-weight:500;color:var(--gold);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:6px;}
+.ai-badge-platforms{display:flex;justify-content:center;flex-wrap:wrap;gap:5px;}
+.ai-badge-platform{padding:2px 8px;background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.12);border-radius:99px;font-size:9px;color:var(--light-15);font-weight:500;letter-spacing:0.05em;}
+
+.attorney-card{background:var(--navy-card);border:1px solid var(--border);border-radius:2px;padding:18px;display:flex;align-items:center;gap:14px;opacity:0;animation:fadeUp 0.5s ease forwards;animation-delay:0.45s;}
+.attorney-avatar{width:50px;height:50px;border-radius:50%;background:var(--gold-dim);border:1px solid var(--gold-border);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:16px;font-weight:700;color:var(--gold);flex-shrink:0;}
+.attorney-name{font-family:var(--font-display);font-size:15px;font-weight:600;color:var(--light);margin-bottom:2px;}
+.attorney-title{font-size:10px;color:var(--light-30);}
+.attorney-bar{margin-top:5px;font-size:9px;color:var(--gold);opacity:0.7;letter-spacing:0.06em;}
+
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;opacity:0;animation:fadeUp 0.5s ease forwards;animation-delay:0.6s;}
+.stat-card{background:var(--navy-card);border:1px solid var(--border);border-radius:2px;padding:14px 16px;text-align:center;}
+.stat-num{font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--gold);line-height:1;margin-bottom:4px;}
+.stat-num.white{color:var(--light);}
+.stat-label{font-size:9px;color:var(--light-15);letter-spacing:0.06em;}
+
+.practices-list{background:var(--navy-card);border:1px solid var(--border);border-radius:2px;overflow:hidden;opacity:0;animation:fadeUp 0.5s ease forwards;animation-delay:0.75s;}
+.practices-header{padding:12px 16px;border-bottom:1px solid var(--border);font-size:9px;font-weight:500;color:var(--gold);letter-spacing:0.18em;text-transform:uppercase;}
+.practice-row{padding:11px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;transition:background 0.15s;}
+.practice-row:last-child{border-bottom:none;}
+.practice-row:hover{background:rgba(201,168,76,0.04);}
+.practice-dash{width:16px;height:1px;background:var(--gold);opacity:0.5;flex-shrink:0;}
+.practice-name{font-size:12px;color:var(--light-50);}
+
+.stat-strip{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--border);background:var(--navy-mid);}
+.strip-item{padding:24px 32px;border-right:1px solid var(--border);opacity:0;animation:fadeUp 0.5s ease forwards;}
+.strip-item:last-child{border-right:none;}
+.strip-item:nth-child(1){animation-delay:0.9s;}
+.strip-item:nth-child(2){animation-delay:1.0s;}
+.strip-item:nth-child(3){animation-delay:1.1s;}
+.strip-item:nth-child(4){animation-delay:1.2s;}
+.strip-num{font-family:var(--font-display);font-size:28px;font-weight:700;color:var(--light);letter-spacing:-0.02em;margin-bottom:4px;}
+.strip-num span{color:var(--gold);}
+.strip-label{font-size:10px;color:var(--light-15);letter-spacing:0.06em;}
+
+@media(max-width:900px){
+  nav{padding:0 20px;}
+  .nav-links{display:none;}
+  .hero{grid-template-columns:1fr;}
+  .hero-left{padding:40px 24px 40px 32px;}
+  .hero-right{border-left:none;border-top:1px solid var(--border);}
+  .stat-strip{grid-template-columns:repeat(2,1fr);}
+  .strip-item:nth-child(2){border-right:none;}
+  .strip-item:nth-child(3){border-top:1px solid var(--border);}
+  .strip-item:nth-child(4){border-right:none;border-top:1px solid var(--border);}
+}
+</style>
+</head>
+<body>
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-name">Harrington &amp; Cole</div>
+    <div class="nav-logo-sub">Attorneys at Law · Est. 1987</div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#">Practice Areas</a></li>
+    <li><a href="#">Our Attorneys</a></li>
+    <li><a href="#">Results</a></li>
+    <li><a href="#">Insights</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:16px;">
+    <span style="font-size:11px;color:var(--light-15);">(713) 555-0188</span>
+    <a href="#" class="btn-consult">Free Consultation</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-left">
+
+    <div class="checkpoint">
+      <div class="cp-num">I.</div>
+      <div class="cp-body">
+        <div class="cp-label">Who we are</div>
+        <div class="identity-badge">
+          <div class="identity-dot"></div>
+          <span class="identity-text">Corporate · Litigation · Real Estate · Houston, TX · 37 Years</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="checkpoint">
+      <div class="cp-num">II.</div>
+      <div class="cp-body">
+        <div class="cp-label">What we do</div>
+        <h1 class="cp-headline">We Protect What<br>You've <em>Built.</em><br>In Every Courtroom.</h1>
+        <div class="headline-rule"></div>
+      </div>
+    </div>
+
+    <div class="checkpoint">
+      <div class="cp-num">III.</div>
+      <div class="cp-body">
+        <div class="cp-label">Who it's for</div>
+        <p class="cp-audience">For <strong>business owners, corporations, real estate investors,</strong> and individuals in Texas facing high-stakes legal challenges — from contract disputes and M&amp;A transactions to commercial litigation and property law.</p>
+      </div>
+    </div>
+
+    <div class="checkpoint">
+      <div class="cp-num">IV.</div>
+      <div class="cp-body">
+        <div class="cp-label">Why it matters now</div>
+        <div class="cp-ai-box">
+          <div class="cp-ai-inner">
+            <div class="cp-ai-icon">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5L4.5 7.5L8.5 2.5" stroke="#C9A84C" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <div class="cp-ai-text"><strong>When clients search AI for corporate attorneys in Houston, Harrington &amp; Cole appears by name.</strong> Our practice areas, attorneys, and case results are now indexed across every major AI platform.</div>
+              <div class="ai-platforms">
+                <span class="ai-pill">ChatGPT</span>
+                <span class="ai-pill">Google AI</span>
+                <span class="ai-pill">Gemini</span>
+                <span class="ai-pill">Perplexity</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-cta">
+      <a href="#" class="btn-gold">Schedule Free Consultation</a>
+      <a href="#" class="btn-outline">View Our Results</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="ai-badge">
+      <div class="ai-badge-title">AI Visibility Active</div>
+      <div class="ai-badge-platforms">
+        <span class="ai-badge-platform">ChatGPT</span>
+        <span class="ai-badge-platform">Gemini</span>
+        <span class="ai-badge-platform">Perplexity</span>
+        <span class="ai-badge-platform">Google AI</span>
+      </div>
+    </div>
+    <div class="attorney-card">
+      <div class="attorney-avatar">JH</div>
+      <div>
+        <div class="attorney-name">James R. Harrington, J.D.</div>
+        <div class="attorney-title">Senior Partner · Harvard Law '86</div>
+        <div class="attorney-bar">Texas Bar · U.S. District Court · 5th Circuit</div>
+      </div>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-card"><div class="stat-num">$2B+</div><div class="stat-label">Cases Won</div></div>
+      <div class="stat-card"><div class="stat-num white">37yr</div><div class="stat-label">In Practice</div></div>
+      <div class="stat-card"><div class="stat-num white">98%</div><div class="stat-label">Win Rate</div></div>
+      <div class="stat-card"><div class="stat-num">14</div><div class="stat-label">Attorneys</div></div>
+    </div>
+    <div class="practices-list">
+      <div class="practices-header">Practice Areas</div>
+      <div class="practice-row"><div class="practice-dash"></div><span class="practice-name">Corporate Law &amp; M&amp;A</span></div>
+      <div class="practice-row"><div class="practice-dash"></div><span class="practice-name">Commercial Litigation</span></div>
+      <div class="practice-row"><div class="practice-dash"></div><span class="practice-name">Real Estate Transactions</span></div>
+      <div class="practice-row"><div class="practice-dash"></div><span class="practice-name">Employment Law</span></div>
+      <div class="practice-row"><div class="practice-dash"></div><span class="practice-name">Estate Planning &amp; Probate</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="stat-strip">
+  <div class="strip-item"><div class="strip-num">$2<span>B+</span></div><div class="strip-label">Recovered for Clients</div></div>
+  <div class="strip-item"><div class="strip-num">37<span>yr</span></div><div class="strip-label">Serving Texas Since 1987</div></div>
+  <div class="strip-item"><div class="strip-num">98<span>%</span></div><div class="strip-label">Favorable Outcomes</div></div>
+  <div class="strip-item"><div class="strip-num">4<span>x</span></div><div class="strip-label">AI Platforms Indexed</div></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,3 @@
+Contact: mailto:security@upserv.ai
+Preferred-Languages: en
+Canonical: https://upserv.ai/.well-known/security.txt
