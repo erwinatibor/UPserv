@@ -512,13 +512,14 @@
         /* --- GHOST SCORE / AUDIT TOOL --- */
         #ai-audit-tool { background: var(--bg-page) !important; }
         #ai-audit-tool .bg-brand-coral { background: linear-gradient(135deg, #00D4FF, #8A2BE2) !important; }
-        #ai-audit-tool a.bg-brand-dark {
+        /* --- DARK CTA BUTTONS (keep dark in light theme) --- */
+        a.bg-brand-dark, button.bg-brand-dark {
             background: #1a1a1a !important;
             color: #fff !important;
             border-color: #1a1a1a !important;
         }
-        #ai-audit-tool a.bg-brand-dark:hover {
-            background: var(--text-heading, #1a1a1a) !important;
+        a.bg-brand-dark:hover, button.bg-brand-dark:hover {
+            background: #333 !important;
             color: #fff !important;
         }
 
