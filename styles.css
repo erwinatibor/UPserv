@@ -600,7 +600,7 @@ html.light .theme-toggle .icon-moon { display: block; }
     }
     #center-msg {
         width: 170px !important;
-        transform: translate(-50%,-160%) translateZ(0) !important;
+        transform: translate(-50%,-260%) translateZ(0) !important;
     }
     #cm-main {
         font-size: 11px !important;
@@ -659,7 +659,7 @@ html.light .theme-toggle .icon-moon { display: block; }
     }
     #center-msg {
         width: 170px !important;
-        transform: translate(-50%, -180%) translateZ(0) !important;
+        transform: translate(-50%, -280%) translateZ(0) !important;
     }
     #cm-main {
         font-size: 11px !important;
